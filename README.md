@@ -35,7 +35,7 @@ Este workflow de **n8n** obtiene el precio del dólar desde una API pública y e
 ---
 
 ## Cómo usarlo
-1. Importar `bot-dolar.json` en tu instancia de n8n.  
+1. Importar `Valor diario del dolar a Discord.json` en tu instancia de n8n.  
 2. Configurar tus credenciales de Discord Bot.  
 3. Ejecutar el workflow.  
 
