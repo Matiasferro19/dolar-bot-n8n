@@ -40,7 +40,7 @@ Este workflow de **n8n** obtiene el precio del dólar desde una API pública y e
 3. Ejecutar el workflow.  
 
 ## Screenshots
-![Workflow en n8n](screenshots/workflow.png)
+![Workflow en n8n](screenshots/Workflow.png)
 
 ---
 
