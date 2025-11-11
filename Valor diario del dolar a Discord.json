@@ -1,0 +1,184 @@
+{
+  "name": "Valor diario del dolar a Discord",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 14,
+              "triggerAtMinute": 17
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -816,
+        -64
+      ],
+      "id": "80880eee-01b3-425b-9736-4719b60c160a",
+      "name": "Programar hora de ejecucion"
+    },
+    {
+      "parameters": {
+        "url": "https://cdn.moneyconvert.net/api/latest.json ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -592,
+        -208
+      ],
+      "id": "d9b0df59-4ad3-477f-862f-e67f9d4f9fb9",
+      "name": "Peticion a API para sacar valor del dolar"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e7909a5f-5d2d-4f7f-987e-6ec10c180966",
+              "name": "rates.USD",
+              "value": "={{ $json.rates.USD }}",
+              "type": "number"
+            },
+            {
+              "id": "dafb7db1-acd8-4f4a-9805-624247cbd248",
+              "name": "rates.ARS",
+              "value": "={{ $json.rates.ARS }}",
+              "type": "number"
+            },
+            {
+              "id": "b73e55aa-3b39-477d-9b1b-80617f75db8a",
+              "name": "date",
+              "value": "={{ $json.lastupdate }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -368,
+        -16
+      ],
+      "id": "dff4488e-17c7-4db2-8b2e-2cd6020f7e73",
+      "name": "Crear nuevas variables"
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.date }}",
+        "format": "MMMM dd yyyy",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        -144
+      ],
+      "id": "297e1ef9-4f4a-42ad-ac5d-9b3740f23386",
+      "name": "Modificando formato de una fecha"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "1425609921231192138",
+          "mode": "list",
+          "cachedResultName": "Primera Mitad ⚡",
+          "cachedResultUrl": "https://discord.com/channels/1425609921231192138"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1430188888374378496",
+          "mode": "list",
+          "cachedResultName": "precio-dolar😭",
+          "cachedResultUrl": "https://discord.com/channels/1425609921231192138/1430188888374378496"
+        },
+        "content": "=Un dolar vale {{ $('Crear nuevas variables').item.json.rates.ARS }} $ ARS.\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        80,
+        -16
+      ],
+      "id": "a8df9170-025c-4405-a74a-25b5cfcaa3c6",
+      "name": "Discord - Mensaje del bot",
+      "webhookId": "59de3c7e-bb94-453d-8cd7-a4012fa72e08",
+      "credentials": {
+        "discordBotApi": {
+          "id": "RXUFNlfd2NjlqxaR",
+          "name": "Discord Bot account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Programar hora de ejecucion": {
+      "main": [
+        [
+          {
+            "node": "Peticion a API para sacar valor del dolar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Peticion a API para sacar valor del dolar": {
+      "main": [
+        [
+          {
+            "node": "Crear nuevas variables",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crear nuevas variables": {
+      "main": [
+        [
+          {
+            "node": "Modificando formato de una fecha",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Modificando formato de una fecha": {
+      "main": [
+        [
+          {
+            "node": "Discord - Mensaje del bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6ea87cf1-0f47-4cf9-bb57-918dc0d052d8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bdd18a8c77a2987c9a10ababb0a93dc460f07fc3a09303972e6073d297628cf5"
+  },
+  "id": "VFMEcltGR1QeKFrP",
+  "tags": []
+}
