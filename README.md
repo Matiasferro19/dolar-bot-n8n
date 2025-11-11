@@ -42,7 +42,7 @@ Este workflow de **n8n** obtiene el precio del dólar desde una API pública y e
 ## Screenshots
 
 ### 🧩 Workflow en n8n
-![Workflow](screenshots/workflow.png)
+![Workflow](screenshots/Workflow.png)
 
 ### 🤖 Mensaje del bot en Discord
 ![Mensaje del bot](screenshots/Mensaje%20bot.png)
